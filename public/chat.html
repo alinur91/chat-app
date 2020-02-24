@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chap App</title>
+    <link rel="icon" href="/img/favicon.png">
+    <link rel="stylesheet" href="/css/styles.min.css">
+</head>
+<body>
+    <div class="chat">
+        <div id="sidebar" class="chat__sidebar"></div> <!-- sitebar is gonna take up the left space of web page -->
+        <div class="chat__main">
+            <div id="messages" class="chat__messages"></div> <!-- this is gonna be a container for all new messages,suda soobshenie usera budet renderitsya -->
+            <div class="compose">
+                <form id="message-form" action="">
+                    <input name="message" placeholder="Message" required autocomplete="off"> 
+                    <button>Send</button>
+                    
+                </form>
+                
+                <button id="send-location">Send location</button>
+                
+            </div>
+            
+        </div>
+    </div>
+  
+
+    <!-- lets create our 1st html template and render it -->
+    <!-- this template is for individual message,we'll be using this template multiple times for every single message that needs to get shown to the user -->
+    <!-- to create a template we set up a script tag(ishine html kirgizemiz) -->
+   
+<script id="message-template" type="text/html">
+    <!--  id nuzhen shtoby a way to target this template from chat.js  -->
+    <!-- type="text/html" degen to let the browser know we have html inside here for the template -->
+<!-- now we have the template created we can use mustache library to render this smwhere in our app -->
+     <!-- bul template code browserde korindeidi,we should only see them when we render content -->
+    <div class="message">
+        <p>
+            <span class="message__name">{{username}}</span>
+            <span class="message__meta">{{createdAt}}</span>
+        </p>
+        <p> {{message}} </p> <!-- {{message}} degen Welcome! goi -->
+    </div>
+</script>
+    <button>To the top</button>
+<script id="location-template" type="text/html">
+    <!--  id nuzhen shtoby a way to target this template from chat.js  -->
+    <!-- type="text/html" degen to let the browser know we have html inside here for the template -->
+<!-- now we have the template created we can use mustache library to render this smwhere in our app -->
+     <!-- bul template code browserde korindeidi,we should only see them when we render content -->
+    <div class="message">
+        <p>
+            <span class="message__name">{{username}}</span>
+            <span class="message__meta">{{createdAt}}</span>
+        </p>
+       <p> <a href="{{url}}" target="blank">My current location</a> </p>  <!-- {{message}} degen Welcome! goi -->
+    </div>
+</script>
+
+<script id="sidebar-template" type="text/html">
+    <h2 class="room-title">{{room}}</h2>
+    <h3 class="list-title">Users </h3>
+    <ul class="users">
+        {{#users}} <!-- openning for array and closing for array -->
+        <li>{{username}} </li>
+        {{/users}}
+    </ul>
+
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script> <!-- client-side version of the library.Our client-side js code will have access to all of the stuff from the library it needs in order to set up communication -->
+    <script src="/js/chat.js"></script>
+</body>
+</html>
